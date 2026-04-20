@@ -7,7 +7,7 @@ import (
 	"rate-limiter/internal/limiter"
 )
 
-func RateLimimt(l *limiter.FixedWindow) gin.HandlerFunc{
+func RateLimit(l *limiter.FixedWindow) gin.HandlerFunc{
 	return func(c *gin.Context){
 		user := c.ClientIP()
 		
