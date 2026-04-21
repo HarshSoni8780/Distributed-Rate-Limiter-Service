@@ -1,6 +1,8 @@
 package main
 
-import(
+import (
+	"time"
+
 	"github.com/gin-gonic/gin"
 
 	"rate-limiter/internal/limiter"
@@ -15,10 +17,10 @@ func main(){
 	rdb := store.NewRedis()
 
 	//limiter(100req/min)
-	fw := limiter.NewFixedWindow(rdb, 2)
+	fw := limiter.NewSlidingWindow(rdb,5,time.Minute)
 
 	//apply middlware
-	r.Use(middleware.RateLimit(fw))
+	r.Use(middleware.SlidingRateLimit(fw))
 
 	//test route
 	r.GET("/api", func(c *gin.Context) {
