@@ -17,7 +17,7 @@ func main(){
 	rdb := store.NewRedis()
 
 	//limiter(100req/min)
-	fw := limiter.NewSlidingWindow(rdb,5,time.Minute)
+	fw := limiter.NewSlidingWindow(rdb,5,10*time.Second)
 
 	//apply middlware
 	r.Use(middleware.SlidingRateLimit(fw))
