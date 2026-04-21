@@ -1,4 +1,4 @@
-package server
+package main
 
 import(
 	"github.com/gin-gonic/gin"
@@ -15,7 +15,7 @@ func main(){
 	rdb := store.NewRedis()
 
 	//limiter(100req/min)
-	fw := limiter.NewFixedWindow(rdb, 100)
+	fw := limiter.NewFixedWindow(rdb, 2)
 
 	//apply middlware
 	r.Use(middleware.RateLimit(fw))
