@@ -1,7 +1,6 @@
 package main
 
 import (
-	"time"
 
 	"github.com/gin-gonic/gin"
 
@@ -17,10 +16,10 @@ func main(){
 	rdb := store.NewRedis()
 
 	//limiter(100req/min)
-	fw := limiter.NewSlidingWindow(rdb,5,10*time.Second)
+	fw := limiter.NewTokenBucket(rdb,100,10)
 
 	//apply middlware
-	r.Use(middleware.SlidingRateLimit(fw))
+	r.Use(middleware.TokenBucketLimit(fw))
 
 	//test route
 	r.GET("/api", func(c *gin.Context) {

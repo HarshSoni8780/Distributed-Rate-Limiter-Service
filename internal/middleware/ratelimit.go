@@ -7,7 +7,7 @@ import (
 	"rate-limiter/internal/limiter"
 )
 
-func SlidingRateLimit(l *limiter.SlidingWindow) gin.HandlerFunc{
+func TokenBucketLimit(l *limiter.TokenBucket) gin.HandlerFunc{
 	return func(c *gin.Context){
 		user := c.ClientIP()
 		
