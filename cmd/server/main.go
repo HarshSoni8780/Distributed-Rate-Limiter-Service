@@ -16,7 +16,7 @@ func main(){
 	rdb := store.NewRedis()
 
 	//limiter(100req/min)
-	fw := limiter.NewTokenBucket(rdb,100,10)
+	fw := limiter.NewTokenBucket(rdb,5,1)
 
 	//apply middlware
 	r.Use(middleware.TokenBucketLimit(fw))
